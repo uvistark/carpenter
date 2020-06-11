@@ -1,0 +1,645 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectZUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ColorForFurniture">
+          <Key>
+            <PropertyRef Name="ColorForFurnitureId" />
+          </Key>
+          <Property Name="ColorForFurnitureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FurnitureId" Type="int" Nullable="false" />
+          <Property Name="ColorsId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="colors">
+          <Key>
+            <PropertyRef Name="ColorsId" />
+          </Key>
+          <Property Name="ColorsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="colorsName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommissionedFurnitures">
+          <Key>
+            <PropertyRef Name="CommissionedFurnituresId" />
+          </Key>
+          <Property Name="CommissionedFurnituresId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrdersId" Type="int" Nullable="false" />
+          <Property Name="FurnitureId" Type="int" Nullable="false" />
+          <Property Name="ColorsId" Type="int" Nullable="false" />
+          <Property Name="RawMaterialsId" Type="int" Nullable="false" />
+          <Property Name="AmountCommissionedFurnitures" Type="int" />
+          <Property Name="HeightCommissionedFurnitures" Type="int" />
+          <Property Name="WidthCommissionedFurnitures" Type="int" />
+          <Property Name="DepthCommissionedFurnitures" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomersId" />
+          </Key>
+          <Property Name="CustomersId" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="CustomersName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomersAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomersPhone" Type="int" Nullable="false" />
+          <Property Name="CustomersEmail" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Factories">
+          <Key>
+            <PropertyRef Name="FactoriesId" />
+          </Key>
+          <Property Name="FactoriesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FactoriesName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FactoriesAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FactoriesNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PriceOfFreightFactories" Type="int" />
+          <Property Name="TypesOfServiceId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="FurnitureId" />
+          </Key>
+          <Property Name="FurnitureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FurnitureName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FurnitureInstructions" Type="varchar" MaxLength="1000" />
+          <Property Name="HeightFurniture" Type="int" />
+          <Property Name="WidthFurniture" Type="int" />
+          <Property Name="DepthFurniture" Type="int" />
+          <Property Name="RawMaterialsId" Type="int" Nullable="false" />
+          <Property Name="FurniturePreparationTime" Type="varchar" MaxLength="50" />
+          <Property Name="FurnitureWarranty" Type="varchar" MaxLength="50" />
+          <Property Name="FurnitureAddDoor" Type="varchar" MaxLength="500" />
+          <Property Name="FurnitureAddShelf" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrdersId" />
+          </Key>
+          <Property Name="OrdersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomersId" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="kindOPayment" Type="varchar" MaxLength="50" />
+          <Property Name="TotalToPay" Type="int" />
+        </EntityType>
+        <EntityType Name="RawMaterials">
+          <Key>
+            <PropertyRef Name="RawMaterialsId" />
+          </Key>
+          <Property Name="RawMaterialsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RawMaterialName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypesOfService">
+          <Key>
+            <PropertyRef Name="TypesOfServiceId" />
+          </Key>
+          <Property Name="TypesOfServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypesOfServiceName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__ColorForF__Color__4222D4EF">
+          <End Role="colors" Type="Self.colors" Multiplicity="1" />
+          <End Role="ColorForFurniture" Type="Self.ColorForFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colors">
+              <PropertyRef Name="ColorsId" />
+            </Principal>
+            <Dependent Role="ColorForFurniture">
+              <PropertyRef Name="ColorsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ColorForF__Furni__412EB0B6">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="ColorForFurniture" Type="Self.ColorForFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="FurnitureId" />
+            </Principal>
+            <Dependent Role="ColorForFurniture">
+              <PropertyRef Name="FurnitureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Color__5070F446">
+          <End Role="colors" Type="Self.colors" Multiplicity="1" />
+          <End Role="CommissionedFurnitures" Type="Self.CommissionedFurnitures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colors">
+              <PropertyRef Name="ColorsId" />
+            </Principal>
+            <Dependent Role="CommissionedFurnitures">
+              <PropertyRef Name="ColorsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Furni__4F7CD00D">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="CommissionedFurnitures" Type="Self.CommissionedFurnitures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="FurnitureId" />
+            </Principal>
+            <Dependent Role="CommissionedFurnitures">
+              <PropertyRef Name="FurnitureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Order__4E88ABD4">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="CommissionedFurnitures" Type="Self.CommissionedFurnitures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrdersId" />
+            </Principal>
+            <Dependent Role="CommissionedFurnitures">
+              <PropertyRef Name="OrdersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__RawMa__5165187F">
+          <End Role="RawMaterials" Type="Self.RawMaterials" Multiplicity="1" />
+          <End Role="CommissionedFurnitures" Type="Self.CommissionedFurnitures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterials">
+              <PropertyRef Name="RawMaterialsId" />
+            </Principal>
+            <Dependent Role="CommissionedFurnitures">
+              <PropertyRef Name="RawMaterialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__Types__5441852A">
+          <End Role="TypesOfService" Type="Self.TypesOfService" Multiplicity="1" />
+          <End Role="Factories" Type="Self.Factories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfService">
+              <PropertyRef Name="TypesOfServiceId" />
+            </Principal>
+            <Dependent Role="Factories">
+              <PropertyRef Name="TypesOfServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Furniture__RawMa__3C69FB99">
+          <End Role="RawMaterials" Type="Self.RawMaterials" Multiplicity="1" />
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterials">
+              <PropertyRef Name="RawMaterialsId" />
+            </Principal>
+            <Dependent Role="Furniture">
+              <PropertyRef Name="RawMaterialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__4BAC3F29">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomersId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectZUModelStoreContainer">
+          <EntitySet Name="ColorForFurniture" EntityType="Self.ColorForFurniture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="colors" EntityType="Self.colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CommissionedFurnitures" EntityType="Self.CommissionedFurnitures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factories" EntityType="Self.Factories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Furniture" EntityType="Self.Furniture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RawMaterials" EntityType="Self.RawMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesOfService" EntityType="Self.TypesOfService" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ColorForF__Color__4222D4EF" Association="Self.FK__ColorForF__Color__4222D4EF">
+            <End Role="colors" EntitySet="colors" />
+            <End Role="ColorForFurniture" EntitySet="ColorForFurniture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ColorForF__Furni__412EB0B6" Association="Self.FK__ColorForF__Furni__412EB0B6">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="ColorForFurniture" EntitySet="ColorForFurniture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Color__5070F446" Association="Self.FK__Commissio__Color__5070F446">
+            <End Role="colors" EntitySet="colors" />
+            <End Role="CommissionedFurnitures" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Furni__4F7CD00D" Association="Self.FK__Commissio__Furni__4F7CD00D">
+            <End Role="Furniture" EntitySet="Furniture" />
+            <End Role="CommissionedFurnitures" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Order__4E88ABD4" Association="Self.FK__Commissio__Order__4E88ABD4">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="CommissionedFurnitures" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__RawMa__5165187F" Association="Self.FK__Commissio__RawMa__5165187F">
+            <End Role="RawMaterials" EntitySet="RawMaterials" />
+            <End Role="CommissionedFurnitures" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__Types__5441852A" Association="Self.FK__Factories__Types__5441852A">
+            <End Role="TypesOfService" EntitySet="TypesOfService" />
+            <End Role="Factories" EntitySet="Factories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Furniture__RawMa__3C69FB99" Association="Self.FK__Furniture__RawMa__3C69FB99">
+            <End Role="RawMaterials" EntitySet="RawMaterials" />
+            <End Role="Furniture" EntitySet="Furniture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__4BAC3F29" Association="Self.FK__Orders__Customer__4BAC3F29">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectZUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ColorForFurniture">
+          <Key>
+            <PropertyRef Name="ColorForFurnitureId" />
+          </Key>
+          <Property Name="ColorForFurnitureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FurnitureId" Type="Int32" Nullable="false" />
+          <Property Name="ColorsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="color" Relationship="Self.FK__ColorForF__Color__4222D4EF" FromRole="ColorForFurniture" ToRole="colors" />
+          <NavigationProperty Name="Furniture" Relationship="Self.FK__ColorForF__Furni__412EB0B6" FromRole="ColorForFurniture" ToRole="Furniture" />
+        </EntityType>
+        <EntityType Name="color">
+          <Key>
+            <PropertyRef Name="ColorsId" />
+          </Key>
+          <Property Name="ColorsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="colorsName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ColorForFurnitures" Relationship="Self.FK__ColorForF__Color__4222D4EF" FromRole="colors" ToRole="ColorForFurniture" />
+          <NavigationProperty Name="CommissionedFurnitures" Relationship="ProjectZUModel.FK__Commissio__Color__5070F446" FromRole="color" ToRole="CommissionedFurniture" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomersId" />
+          </Key>
+          <Property Name="CustomersId" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomersAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomersPhone" Type="Int32" Nullable="false" />
+          <Property Name="CustomersEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__4BAC3F29" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Factory">
+          <Key>
+            <PropertyRef Name="FactoriesId" />
+          </Key>
+          <Property Name="FactoriesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FactoriesName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FactoriesAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FactoriesNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PriceOfFreightFactories" Type="Int32" />
+          <Property Name="TypesOfServiceId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypesOfService" Relationship="Self.FK__Factories__Types__5441852A" FromRole="Factories" ToRole="TypesOfService" />
+        </EntityType>
+        <EntityType Name="Furniture">
+          <Key>
+            <PropertyRef Name="FurnitureId" />
+          </Key>
+          <Property Name="FurnitureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FurnitureName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FurnitureInstructions" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="HeightFurniture" Type="Int32" />
+          <Property Name="WidthFurniture" Type="Int32" />
+          <Property Name="DepthFurniture" Type="Int32" />
+          <Property Name="RawMaterialsId" Type="Int32" Nullable="false" />
+          <Property Name="FurniturePreparationTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FurnitureWarranty" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FurnitureAddDoor" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FurnitureAddShelf" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ColorForFurnitures" Relationship="Self.FK__ColorForF__Furni__412EB0B6" FromRole="Furniture" ToRole="ColorForFurniture" />
+          <NavigationProperty Name="RawMaterial" Relationship="Self.FK__Furniture__RawMa__3C69FB99" FromRole="Furniture" ToRole="RawMaterials" />
+          <NavigationProperty Name="CommissionedFurnitures" Relationship="ProjectZUModel.FK__Commissio__Furni__4F7CD00D" FromRole="Furniture" ToRole="CommissionedFurniture" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrdersId" />
+          </Key>
+          <Property Name="OrdersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomersId" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="kindOPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalToPay" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__4BAC3F29" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="CommissionedFurnitures" Relationship="ProjectZUModel.FK__Commissio__Order__4E88ABD4" FromRole="Order" ToRole="CommissionedFurniture" />
+        </EntityType>
+        <EntityType Name="RawMaterial">
+          <Key>
+            <PropertyRef Name="RawMaterialsId" />
+          </Key>
+          <Property Name="RawMaterialsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RawMaterialName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Furnitures" Relationship="Self.FK__Furniture__RawMa__3C69FB99" FromRole="RawMaterials" ToRole="Furniture" />
+          <NavigationProperty Name="CommissionedFurnitures" Relationship="ProjectZUModel.FK__Commissio__RawMa__5165187F" FromRole="RawMaterial" ToRole="CommissionedFurniture" />
+        </EntityType>
+        <EntityType Name="TypesOfService">
+          <Key>
+            <PropertyRef Name="TypesOfServiceId" />
+          </Key>
+          <Property Name="TypesOfServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypesOfServiceName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Factories" Relationship="Self.FK__Factories__Types__5441852A" FromRole="TypesOfService" ToRole="Factories" />
+        </EntityType>
+        <Association Name="FK__ColorForF__Color__4222D4EF">
+          <End Role="colors" Type="Self.color" Multiplicity="1" />
+          <End Role="ColorForFurniture" Type="Self.ColorForFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colors">
+              <PropertyRef Name="ColorsId" />
+            </Principal>
+            <Dependent Role="ColorForFurniture">
+              <PropertyRef Name="ColorsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ColorForF__Furni__412EB0B6">
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="1" />
+          <End Role="ColorForFurniture" Type="Self.ColorForFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="FurnitureId" />
+            </Principal>
+            <Dependent Role="ColorForFurniture">
+              <PropertyRef Name="FurnitureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Customer__4BAC3F29">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomersId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factories__Types__5441852A">
+          <End Role="TypesOfService" Type="Self.TypesOfService" Multiplicity="1" />
+          <End Role="Factories" Type="Self.Factory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesOfService">
+              <PropertyRef Name="TypesOfServiceId" />
+            </Principal>
+            <Dependent Role="Factories">
+              <PropertyRef Name="TypesOfServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Furniture__RawMa__3C69FB99">
+          <End Role="RawMaterials" Type="Self.RawMaterial" Multiplicity="1" />
+          <End Role="Furniture" Type="Self.Furniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterials">
+              <PropertyRef Name="RawMaterialsId" />
+            </Principal>
+            <Dependent Role="Furniture">
+              <PropertyRef Name="RawMaterialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectZUEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ColorForFurnitures" EntityType="Self.ColorForFurniture" />
+          <EntitySet Name="colors" EntityType="Self.color" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Factories" EntityType="Self.Factory" />
+          <EntitySet Name="Furnitures" EntityType="Self.Furniture" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="RawMaterials" EntityType="Self.RawMaterial" />
+          <EntitySet Name="TypesOfServices" EntityType="Self.TypesOfService" />
+          <AssociationSet Name="FK__ColorForF__Color__4222D4EF" Association="Self.FK__ColorForF__Color__4222D4EF">
+            <End Role="colors" EntitySet="colors" />
+            <End Role="ColorForFurniture" EntitySet="ColorForFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ColorForF__Furni__412EB0B6" Association="Self.FK__ColorForF__Furni__412EB0B6">
+            <End Role="Furniture" EntitySet="Furnitures" />
+            <End Role="ColorForFurniture" EntitySet="ColorForFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Customer__4BAC3F29" Association="Self.FK__Orders__Customer__4BAC3F29">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factories__Types__5441852A" Association="Self.FK__Factories__Types__5441852A">
+            <End Role="TypesOfService" EntitySet="TypesOfServices" />
+            <End Role="Factories" EntitySet="Factories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Furniture__RawMa__3C69FB99" Association="Self.FK__Furniture__RawMa__3C69FB99">
+            <End Role="RawMaterials" EntitySet="RawMaterials" />
+            <End Role="Furniture" EntitySet="Furnitures" />
+          </AssociationSet>
+          <EntitySet Name="CommissionedFurnitures" EntityType="ProjectZUModel.CommissionedFurniture" />
+          <AssociationSet Name="FK__Commissio__Color__5070F446" Association="ProjectZUModel.FK__Commissio__Color__5070F446">
+            <End Role="color" EntitySet="colors" />
+            <End Role="CommissionedFurniture" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Furni__4F7CD00D" Association="ProjectZUModel.FK__Commissio__Furni__4F7CD00D">
+            <End Role="Furniture" EntitySet="Furnitures" />
+            <End Role="CommissionedFurniture" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__Order__4E88ABD4" Association="ProjectZUModel.FK__Commissio__Order__4E88ABD4">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="CommissionedFurniture" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commissio__RawMa__5165187F" Association="ProjectZUModel.FK__Commissio__RawMa__5165187F">
+            <End Role="RawMaterial" EntitySet="RawMaterials" />
+            <End Role="CommissionedFurniture" EntitySet="CommissionedFurnitures" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CommissionedFurniture">
+          <Key>
+            <PropertyRef Name="CommissionedFurnituresId" />
+          </Key>
+          <Property Name="CommissionedFurnituresId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrdersId" Type="Int32" Nullable="false" />
+          <Property Name="FurnitureId" Type="Int32" Nullable="false" />
+          <Property Name="ColorsId" Type="Int32" Nullable="false" />
+          <Property Name="RawMaterialsId" Type="Int32" Nullable="false" />
+          <Property Name="AmountCommissionedFurnitures" Type="Int32" />
+          <Property Name="HeightCommissionedFurnitures" Type="Int32" />
+          <Property Name="WidthCommissionedFurnitures" Type="Int32" />
+          <Property Name="DepthCommissionedFurnitures" Type="Int32" />
+          <NavigationProperty Name="color" Relationship="ProjectZUModel.FK__Commissio__Color__5070F446" FromRole="CommissionedFurniture" ToRole="color" />
+          <NavigationProperty Name="Furniture" Relationship="ProjectZUModel.FK__Commissio__Furni__4F7CD00D" FromRole="CommissionedFurniture" ToRole="Furniture" />
+          <NavigationProperty Name="Order" Relationship="ProjectZUModel.FK__Commissio__Order__4E88ABD4" FromRole="CommissionedFurniture" ToRole="Order" />
+          <NavigationProperty Name="RawMaterial" Relationship="ProjectZUModel.FK__Commissio__RawMa__5165187F" FromRole="CommissionedFurniture" ToRole="RawMaterial" />
+        </EntityType>
+        <Association Name="FK__Commissio__Color__5070F446">
+          <End Type="ProjectZUModel.color" Role="color" Multiplicity="1" />
+          <End Type="ProjectZUModel.CommissionedFurniture" Role="CommissionedFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="color">
+              <PropertyRef Name="ColorsId" />
+            </Principal>
+            <Dependent Role="CommissionedFurniture">
+              <PropertyRef Name="ColorsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Furni__4F7CD00D">
+          <End Type="ProjectZUModel.Furniture" Role="Furniture" Multiplicity="1" />
+          <End Type="ProjectZUModel.CommissionedFurniture" Role="CommissionedFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Furniture">
+              <PropertyRef Name="FurnitureId" />
+            </Principal>
+            <Dependent Role="CommissionedFurniture">
+              <PropertyRef Name="FurnitureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__Order__4E88ABD4">
+          <End Type="ProjectZUModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="ProjectZUModel.CommissionedFurniture" Role="CommissionedFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrdersId" />
+            </Principal>
+            <Dependent Role="CommissionedFurniture">
+              <PropertyRef Name="OrdersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commissio__RawMa__5165187F">
+          <End Type="ProjectZUModel.RawMaterial" Role="RawMaterial" Multiplicity="1" />
+          <End Type="ProjectZUModel.CommissionedFurniture" Role="CommissionedFurniture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RawMaterial">
+              <PropertyRef Name="RawMaterialsId" />
+            </Principal>
+            <Dependent Role="CommissionedFurniture">
+              <PropertyRef Name="RawMaterialsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectZUModelStoreContainer" CdmEntityContainer="ProjectZUEntities">
+          <EntitySetMapping Name="ColorForFurnitures">
+            <EntityTypeMapping TypeName="ProjectZUModel.ColorForFurniture">
+              <MappingFragment StoreEntitySet="ColorForFurniture">
+                <ScalarProperty Name="ColorForFurnitureId" ColumnName="ColorForFurnitureId" />
+                <ScalarProperty Name="FurnitureId" ColumnName="FurnitureId" />
+                <ScalarProperty Name="ColorsId" ColumnName="ColorsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="colors">
+            <EntityTypeMapping TypeName="ProjectZUModel.color">
+              <MappingFragment StoreEntitySet="colors">
+                <ScalarProperty Name="ColorsId" ColumnName="ColorsId" />
+                <ScalarProperty Name="colorsName" ColumnName="colorsName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ProjectZUModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomersId" ColumnName="CustomersId" />
+                <ScalarProperty Name="CustomersName" ColumnName="CustomersName" />
+                <ScalarProperty Name="CustomersAddress" ColumnName="CustomersAddress" />
+                <ScalarProperty Name="CustomersPhone" ColumnName="CustomersPhone" />
+                <ScalarProperty Name="CustomersEmail" ColumnName="CustomersEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factories">
+            <EntityTypeMapping TypeName="ProjectZUModel.Factory">
+              <MappingFragment StoreEntitySet="Factories">
+                <ScalarProperty Name="FactoriesId" ColumnName="FactoriesId" />
+                <ScalarProperty Name="FactoriesName" ColumnName="FactoriesName" />
+                <ScalarProperty Name="FactoriesAddress" ColumnName="FactoriesAddress" />
+                <ScalarProperty Name="FactoriesNumber" ColumnName="FactoriesNumber" />
+                <ScalarProperty Name="PriceOfFreightFactories" ColumnName="PriceOfFreightFactories" />
+                <ScalarProperty Name="TypesOfServiceId" ColumnName="TypesOfServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Furnitures">
+            <EntityTypeMapping TypeName="ProjectZUModel.Furniture">
+              <MappingFragment StoreEntitySet="Furniture">
+                <ScalarProperty Name="FurnitureId" ColumnName="FurnitureId" />
+                <ScalarProperty Name="FurnitureName" ColumnName="FurnitureName" />
+                <ScalarProperty Name="FurnitureInstructions" ColumnName="FurnitureInstructions" />
+                <ScalarProperty Name="HeightFurniture" ColumnName="HeightFurniture" />
+                <ScalarProperty Name="WidthFurniture" ColumnName="WidthFurniture" />
+                <ScalarProperty Name="DepthFurniture" ColumnName="DepthFurniture" />
+                <ScalarProperty Name="RawMaterialsId" ColumnName="RawMaterialsId" />
+                <ScalarProperty Name="FurniturePreparationTime" ColumnName="FurniturePreparationTime" />
+                <ScalarProperty Name="FurnitureWarranty" ColumnName="FurnitureWarranty" />
+                <ScalarProperty Name="FurnitureAddDoor" ColumnName="FurnitureAddDoor" />
+                <ScalarProperty Name="FurnitureAddShelf" ColumnName="FurnitureAddShelf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ProjectZUModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
+                <ScalarProperty Name="CustomersId" ColumnName="CustomersId" />
+                <ScalarProperty Name="kindOPayment" ColumnName="kindOPayment" />
+                <ScalarProperty Name="TotalToPay" ColumnName="TotalToPay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RawMaterials">
+            <EntityTypeMapping TypeName="ProjectZUModel.RawMaterial">
+              <MappingFragment StoreEntitySet="RawMaterials">
+                <ScalarProperty Name="RawMaterialsId" ColumnName="RawMaterialsId" />
+                <ScalarProperty Name="RawMaterialName" ColumnName="RawMaterialName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesOfServices">
+            <EntityTypeMapping TypeName="ProjectZUModel.TypesOfService">
+              <MappingFragment StoreEntitySet="TypesOfService">
+                <ScalarProperty Name="TypesOfServiceId" ColumnName="TypesOfServiceId" />
+                <ScalarProperty Name="TypesOfServiceName" ColumnName="TypesOfServiceName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommissionedFurnitures">
+            <EntityTypeMapping TypeName="ProjectZUModel.CommissionedFurniture">
+              <MappingFragment StoreEntitySet="CommissionedFurnitures">
+                <ScalarProperty Name="DepthCommissionedFurnitures" ColumnName="DepthCommissionedFurnitures" />
+                <ScalarProperty Name="WidthCommissionedFurnitures" ColumnName="WidthCommissionedFurnitures" />
+                <ScalarProperty Name="HeightCommissionedFurnitures" ColumnName="HeightCommissionedFurnitures" />
+                <ScalarProperty Name="AmountCommissionedFurnitures" ColumnName="AmountCommissionedFurnitures" />
+                <ScalarProperty Name="RawMaterialsId" ColumnName="RawMaterialsId" />
+                <ScalarProperty Name="ColorsId" ColumnName="ColorsId" />
+                <ScalarProperty Name="FurnitureId" ColumnName="FurnitureId" />
+                <ScalarProperty Name="OrdersId" ColumnName="OrdersId" />
+                <ScalarProperty Name="CommissionedFurnituresId" ColumnName="CommissionedFurnituresId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
